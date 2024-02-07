@@ -1,0 +1,215 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to bottom right, #5732dd, #1d0868);
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: url('images/pointer.png') 6 6, auto;
+}
+
+.logo {
+    width: 150px; /* ajusta el tamaño según tus necesidades */
+    height: auto;
+    position: absolute; /* ajusta la posición según tus necesidades */
+    top: 20px;
+    left: 15px;
+    border-radius: 50%;
+}
+
+/* Cambiar el cursor al pasar sobre un botón */
+button:hover {
+    cursor: url('images/pointer_hold.png'), pointer; /* Cambia el cursor al pasar sobre un botón */
+}
+
+.banner {
+    margin-top: 12px;
+    scale: 1.1;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 20px 20px 25px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+header::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+    z-index: 2;
+}
+
+.header-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#games-list {
+    text-align: center;
+    padding: 20px 0;
+}
+
+#games-list h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.game-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.game-box {
+    width: calc(20% - 20px);
+    margin: 20px 10px;
+    border: 5px solid darkorchid;
+    border-radius: 28px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.game-box:hover {
+    transform: translateY(-5px);
+    cursor: url('images/pointer_hold.png'), pointer; /* Cambia el cursor al pasar sobre un botón */
+}
+
+.game-box a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    cursor: url('images/pointer_hold.png'), pointer; /* Cambia el cursor al pasar sobre un botón */
+}
+
+.game-box h3 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #333;
+    cursor: url('images/pointer_hold.png'), pointer; /* Cambia el cursor al pasar sobre un botón */
+}
+
+.game-box img {
+    width: 100%;
+    max-height: 150px;
+    display: block;
+    margin: 10px auto;
+    border-radius: 28px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: url('images/pointer_hold.png'), pointer; /* Cambia el cursor al pasar sobre un botón */
+}
+
+.game-box.dark-mode {
+    background-color: #111111;
+    color: #fff;
+    border-color: #fff;
+}
+
+/* Estilos para el switch */
+.switch {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: inline-block;
+    z-index: 999; /* Asegura que el switch esté por encima de otros elementos */
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Estilos para el botón de cambio de modo */
+#modo-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1; /* Asegura que el botón esté por encima del slider */
+}
+
+/* Estilos adicionales cuando se activa el modo oscuro */
+.dark-mode #modo-btn {
+    background-color: #333;
+    color: #fff;
+}
+
+footer {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    color: white;
+}
+

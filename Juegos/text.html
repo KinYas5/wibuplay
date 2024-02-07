@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WibuPlay</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <label class="switch">
+                <input type="checkbox" id="modo-switch" onclick="cambiarModo()">
+                <span class="slider round"></span>
+            </label>
+            <img class= "logo" src="images/W.gif" alt="Logo animado">
+            <h1>¡Bienvenido WibuPlay!</h1>
+            <p>Explora y disfruta de una variedad de emocionantes juegos.</p>
+        </div>
+    </header>
+    <main>
+        <section id="games-list">
+            <h2>Selecciona un Juego</h2>
+            <div class="game-container">
+                <div class="game-box" id="ping-pong">
+                    <a href="juego1/index.html">
+                        <img src="juego1/cover1.png" alt="Ping Pong 1vs1">
+                        <h3>Ping Pong 1vs1</h3>
+                    </a>
+                </div>
+                <div class="game-box" id="ping-pong">
+                    <a href="juego2/index.html">
+                        <img src="juego2/cover2.png" alt="Ping Pong">
+                        <h3>Ping Pong</h3>
+                    </a>
+                </div>
+                <div class="game-box" id="snake">
+                    <a href="juego3/index.html">
+                        <img src="juego3/cover3.png" alt="Snake">
+                        <h3>Snake</h3>
+                    </a>
+                </div>
+                <div class="game-box" id="tetris">
+                    <a href="juego4/index.html">
+                        <img src="juego4/cover4.png" alt="Tetris">
+                        <h3>Tetris</h3>
+                    </a>
+                </div>
+                <div class="game-box" id="ahorcado">
+                    <a href="juego5/index.html">
+                        <img src="juego5/cover5.png" alt="Ahorcado">
+                        <h3>Ahorcado</h3>
+                    </a>
+                </div>
+                <div class="game-box" id="Buscaminas">
+                    <a href="juego6/index.html">
+                        <img src="juego6/cover6.png" alt="Buscaminas">
+                        <h3>Buscaminas</h3>
+                    </a>
+                </div>
+                <div class="game-box" id="tres-en-raya">
+                    <a href="juego7/index.html">
+                        <img src="juego7/cover7.png" alt="Tres en Raya">
+                        <h3>Tres en Raya</h3>
+                    </a>
+                </div>
+                <div class="game-box" id="memoria">
+                    <a href="juego8/index.html">
+                        <img src="juego8/cover8.png" alt="Memoria">
+                        <h3>Memoria</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+            <hr>
+            <hr>
+    <footer>
+        <p>&copy; 2024 WibuPlay</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+body {
+    background-color: #f0f0f0; /* Cambia el color de fondo del cuerpo de la página */
+    margin: 0; /* Elimina el margen predeterminado del cuerpo */
+    display: flex; /* Usa flexbox para centrar el contenido verticalmente */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    height: 100vh; /* Ajusta la altura del cuerpo a la altura visible del viewport */
+}
+
+.container {
+    text-align: center;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    cursor: pointer;
+    background-size: contain; /* Ajusta el tamaño de la imagen para que quepa en la celda */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen dentro de la celda */
+}
+
+.hidden {
+    display: none;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: rgb(55, 59, 59);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    margin-right: 10px; /* Agregar margen derecho entre los botones */
+    margin-top: 20px;
+    width: 120px; /* Ancho fijo para todos los botones */
+}
+
+#winner-message {
+    color: #fff;
+    font-size: 24px;
+    background-color: green;
+    padding: 10px;
+    margin-top: 20px;
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 10px;
+}
