@@ -1,109 +1,93 @@
-const wordElement = document.getElementById('word');
+// Definición de variables
+const wordElement = document.getElementById('word-container');
 const wrongLettersElement = document.getElementById('wrong-letters');
-const popup = document.getElementById('popup-container');
-const message = document.getElementById('final-message');
-const playButton = document.getElementById('play-button');
+const attemptsElement = document.getElementById('attempts');
+const letterInput = document.getElementById('letter-input');
+const checkButton = document.getElementById('check-button');
+const restartButton = document.getElementById('restart-button');
 
-const words = ['silla', 'mesa', 'sofa', 'lampara', 'cama', 'cuadro', 'televisor', 'planta', 'libro', 'telefono'];
+let selectedWord;
+let correctLetters = [];
+let wrongLetters = [];
+let attempts = 6;
 
-let selectedWord = words[Math.floor(Math.random() * words.length)];
+// Palabras para el juego
+const words = ['casa', 'perro', 'gato', 'coche', 'mesa', 'silla', 'ordenador'];
 
-const correctLetters = [];
-const wrongLetters = [];
+// Inicializar el juego
+function init() {
+    selectedWord = words[Math.floor(Math.random() * words.length)];
+    displayWord();
+}
 
-// Show hidden word
+// Mostrar la palabra oculta
 function displayWord() {
-  wordElement.innerHTML = `
-    ${selectedWord
-      .split('')
-      .map(
-        letter => `
-          <span class="letter">
-            ${correctLetters.includes(letter) ? letter : ''}
-          </span>
-        `
-      )
-      .join('')}
-  `;
-
-  const innerWord = wordElement.innerText.replace(/\n/g, '');
-
-  if (innerWord === selectedWord) {
-    message.innerText = '¡Felicidades! ¡Has ganado! 😃';
-    popup.style.display = 'flex';
-  }
+    wordElement.innerHTML = '';
+    selectedWord.split('').forEach(letter => {
+        const span = document.createElement('span');
+        span.textContent = correctLetters.includes(letter) ? letter : '_';
+        wordElement.appendChild(span);
+    });
 }
 
-// Update the wrong letters
-function updateWrongLettersElement() {
-  wrongLettersElement.innerHTML = `
-    ${wrongLetters.length > 0 ? '<p>Letras incorrectas:</p>' : ''}
-    ${wrongLetters.map(letter => `<span class="wrong-letter">${letter}</span>`).join('')}
-  `;
-
-  // Display parts
-  document.querySelectorAll('.figure-part').forEach((part, index) => {
-    const errors = wrongLetters.length;
-
-    if (index < errors) {
-      part.style.display = 'block';
-    } else {
-      part.style.display = 'none';
-    }
-  });
-
-  // Check if lost
-  if (wrongLetters.length === 6) {
-    message.innerText = `Lamentablemente perdiste. La palabra era: ${selectedWord}`;
-    popup.style.display = 'flex';
-  }
+// Mostrar letras incorrectas
+function displayWrongLetters() {
+    wrongLettersElement.innerHTML = wrongLetters.join(', ');
 }
 
-// Show notification
-function showNotification() {
-  const notification = document.getElementById('notification-container');
-  notification.classList.add('show');
-
-  setTimeout(() => {
-    notification.classList.remove('show');
-  }, 2000);
-}
-
-// Keydown letter press
-window.addEventListener('keydown', e => {
-    if (e.keyCode >= 65 && e.keyCode <= 90) {
-      const letter = e.key.toUpperCase(); // Convertir la letra a mayúscula
-  
-      if (!correctLetters.includes(letter)) {
-        if (selectedWord.includes(letter)) {
-          correctLetters.push(letter);
-          displayWord();
-        } else {
-          if (!wrongLetters.includes(letter)) {
-            wrongLetters.push(letter);
-            updateWrongLettersElement();
-          }
+// Comprobar si la letra ingresada está en la palabra
+function checkLetter(letter) {
+    if (selectedWord.includes(letter)) {
+        if (!correctLetters.includes(letter)) {
+            correctLetters.push(letter);
+            displayWord();
         }
-      } else {
-        showNotification();
-      }
+    } else {
+        if (!wrongLetters.includes(letter)) {
+            wrongLetters.push(letter);
+            attempts--;
+            displayWrongLetters();
+            attemptsElement.textContent = attempts;
+        }
     }
-  });
-  
-  
-// Play again button click
-playButton.addEventListener('click', () => {
-  // Empty arrays
-  correctLetters.splice(0);
-  wrongLetters.splice(0);
+    checkGameStatus();
+}
 
-  selectedWord = words[Math.floor(Math.random() * words.length)];
+// Comprobar estado del juego
+function checkGameStatus() {
+    if (correctLetters.length === selectedWord.length) {
+        alert('¡Felicidades! ¡Has ganado!');
+        restartGame();
+    }
+    if (attempts === 0) {
+        alert(`¡Lamentablemente perdiste! La palabra era: ${selectedWord}`);
+        restartGame();
+    }
+}
 
-  displayWord();
+// Reiniciar el juego
+function restartGame() {
+    correctLetters = [];
+    wrongLetters = [];
+    attempts = 6;
+    attemptsElement.textContent = attempts;
+    displayWord();
+    displayWrongLetters();
+}
 
-  updateWrongLettersElement();
-
-  popup.style.display = 'none';
+// Evento al hacer clic en "Comprobar letra"
+checkButton.addEventListener('click', () => {
+    const letter = letterInput.value.toLowerCase();
+    if (letter && letter.match(/[a-z]/)) {
+        checkLetter(letter);
+        letterInput.value = '';
+    } else {
+        alert('Por favor, ingresa una letra válida.');
+    }
 });
 
-displayWord();
+// Evento al hacer clic en "Reiniciar juego"
+restartButton.addEventListener('click', restartGame);
+
+// Inicializar el juego al cargar la página
+init();

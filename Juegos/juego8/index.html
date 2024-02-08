@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Plataformas</title>
+    <title>Sudoku</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
-    <script src="game.js"></script>
+    <div class="container">
+        <h1>Sudoku</h1>
+        <div id="sudoku-board" class="sudoku-board">
+            <!-- Aquí se generará el tablero del Sudoku -->
+        </div>
+        <button id="new-game-button" class="new-game-button">Nuevo Juego</button>
+        <button id="back-button" class="back-button">
+            <img src="home.png" alt="Home">
+        </button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

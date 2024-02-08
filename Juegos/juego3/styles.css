@@ -1,57 +1,84 @@
-body, html {
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #212121;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
 }
 
-#menu {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.container {
     text-align: center;
-    z-index: 9999;
 }
 
-#start-button {
-    padding: 10px 20px;
-    font-size: 18px;
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    background-color: #c410d4;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
     cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    overflow: hidden; /* Asegura que la animación se ajuste al botón */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#game-container {
+.back-button img {
+    width: 35px; /* Ajusta la imagen al 100% del ancho del botón */
+    height: 35px; /* Permite que la altura se ajuste automáticamente */
+}
+
+@keyframes expandCircle {
+    0% {
+        width: 50px;
+        height: 50px;
+    }
+    100% {
+        width: 100vw; /* Expande el botón para cubrir toda la pantalla horizontalmente */
+        height: 100vh; /* Expande el botón para cubrir toda la pantalla verticalmente */
+        border-radius: 0%; /* Redondea los bordes a medida que se expande */
+        top: 0; /* Coloca el botón en la esquina superior izquierda */
+        right: 0;
+    }
+}
+
+.game-board {
     width: 400px;
     height: 400px;
-    margin: auto;
+    background-color: #424242;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 0 auto 20px;
     position: relative;
-    border: 2px solid #000;
 }
 
-#snake-head, #apple {
-    width: 20px;
-    height: 20px;
-    background-color: red;
-    position: absolute;
-}
-
-#apple {
-    position: absolute;
-    left: 0;
-    top: 0;
-    /* Ajusta las dimensiones de la imagen de la manzana según sea necesario */
-    width: 50px;
-    height: 30px;
-    /* Elimina cualquier borde alrededor de la imagen */
+.start-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #808080;
     border: none;
-    /* Ajusta el relleno y el margen para asegurarte de que no haya espacio adicional alrededor de la imagen */
-    padding: 0px;
-    margin: -5px;
-    /* Asegúrate de que la imagen tenga un fondo transparente */
-    background-color: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
-.snake-body {
-    background-color: green;
+
+.start-button:hover {
+    background-color: #606060;
 }
 
 .hidden {

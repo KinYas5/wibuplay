@@ -80,3 +80,17 @@ function resetGame() {
     winnerMessage.classList.add('hidden');
     board.classList.remove('disabled');
 }
+
+function adjustBoardSize() {
+    // Ajusta el tamaño del tablero en función del nivel seleccionado
+    const board = document.getElementById('board');
+    board.style.gridTemplateColumns = `repeat(${size}, 40px)`;
+    board.style.gridTemplateRows = `repeat(${size}, 40px)`;
+}
+
+backButton.addEventListener('click', function() {
+    backButton.style.animation = 'expandCircle 1s forwards';
+    setTimeout(function() {
+        window.location.href = '/';
+    }, 1000); // Redirecciona después de completar la animación
+});

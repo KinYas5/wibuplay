@@ -1,50 +1,62 @@
-// Obtener el canvas y el contexto
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+document.addEventListener('DOMContentLoaded', () => {
+    const board = document.getElementById('sudoku-board');
+    const newGameButton = document.getElementById('new-game-button');
 
-// Definir variables del juego
-let playerX = 50;
-let playerY = canvas.height - 100;
-let playerWidth = 50;
-let playerHeight = 50;
-let playerSpeed = 5;
+    let sudokuGrid = [];
 
-// Función principal del juego
-function gameLoop() {
-    // Borrar el canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Dibujar al jugador
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
-
-    // Actualizar la posición del jugador
-    movePlayer();
-
-    // Llamar al gameLoop de nuevo
-    requestAnimationFrame(gameLoop);
-}
-
-// Función para mover al jugador
-function movePlayer() {
-    // Mover el jugador hacia la derecha
-    if (keysPressed['ArrowRight'] && playerX < canvas.width - playerWidth) {
-        playerX += playerSpeed;
+    // Función para generar un tablero de Sudoku vacío
+    function generateSudokuBoard() {
+        for (let i = 0; i < 9; i++) {
+            sudokuGrid[i] = [];
+            for (let j = 0; j < 9; j++) {
+                sudokuGrid[i][j] = 0; // Inicializa todas las celdas con 0 (vacías)
+            }
+        }
     }
-    // Mover el jugador hacia la izquierda
-    if (keysPressed['ArrowLeft'] && playerX > 0) {
-        playerX -= playerSpeed;
+
+    // Función para mostrar el tablero de Sudoku en el HTML
+    function renderSudokuBoard() {
+        board.innerHTML = ''; // Limpiar el tablero antes de renderizarlo nuevamente
+
+        for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+                const cell = document.createElement('input');
+                cell.type = 'text';
+                cell.maxLength = 1;
+                cell.value = sudokuGrid[i][j] === 0 ? '' : sudokuGrid[i][j]; // Mostrar los números del tablero
+                cell.className = 'sudoku-cell';
+                cell.dataset.row = i;
+                cell.dataset.col = j;
+                cell.addEventListener('input', handleCellInput);
+                board.appendChild(cell);
+            }
+        }
     }
-}
 
-// Manejo de teclas
-const keysPressed = {};
-document.addEventListener('keydown', function(event) {
-    keysPressed[event.key] = true;
-});
-document.addEventListener('keyup', function(event) {
-    delete keysPressed[event.key];
-});
+    // Función para manejar la entrada del jugador en las celdas del Sudoku
+    function handleCellInput(event) {
+        const row = parseInt(event.target.dataset.row);
+        const col = parseInt(event.target.dataset.col);
+        const value = parseInt(event.target.value);
 
-// Iniciar el bucle del juego
-gameLoop();
+        // Validar la entrada del jugador
+        if (isNaN(value) || value < 1 || value > 9) {
+            sudokuGrid[row][col] = 0; // Si la entrada es inválida, establecer la celda como vacía
+            event.target.value = ''; // Limpiar el valor de la celda en el HTML
+        } else {
+            sudokuGrid[row][col] = value; // Actualizar el valor de la celda en el tablero
+        }
+    }
+
+    // Función para generar un nuevo juego de Sudoku
+    function newGame() {
+        generateSudokuBoard();
+        renderSudokuBoard();
+    }
+
+    // Evento click del botón "Nuevo Juego"
+    newGameButton.addEventListener('click', newGame);
+
+    // Iniciar un nuevo juego al cargar la página
+    newGame();
+});

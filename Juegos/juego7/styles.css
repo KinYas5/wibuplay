@@ -7,6 +7,44 @@ body {
     height: 100vh; /* Ajusta la altura del cuerpo a la altura visible del viewport */
 }
 
+.back-button {
+    background-color: #c410d4;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    overflow: hidden; /* Asegura que la animación se ajuste al botón */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-button img {
+    width: 35px; /* Ajusta la imagen al 100% del ancho del botón */
+    height: 35px; /* Permite que la altura se ajuste automáticamente */
+}
+
+@keyframes expandCircle {
+    0% {
+        width: 50px;
+        height: 50px;
+    }
+    100% {
+        width: 100vw; /* Expande el botón para cubrir toda la pantalla horizontalmente */
+        height: 100vh; /* Expande el botón para cubrir toda la pantalla verticalmente */
+        border-radius: 0%; /* Redondea los bordes a medida que se expande */
+        top: 0; /* Coloca el botón en la esquina superior izquierda */
+        right: 0;
+    }
+}
+
 .container {
     text-align: center;
 }

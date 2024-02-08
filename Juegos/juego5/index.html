@@ -1,49 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ahorcado</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina la Palabra</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Ahorcado</h1>
-  <div id="hangman">
-    <svg height="250" width="200" class="figure-container">
-      <!-- Rod -->
-      <line x1="60" y1="20" x2="140" y2="20" />
-      <line x1="140" y1="20" x2="140" y2="50" />
-      <line x1="60" y1="20" x2="60" y2="230" />
-      <line x1="20" y1="230" x2="100" y2="230" />
-
-      <!-- Head -->
-      <circle cx="140" cy="70" r="20" class="figure-part" />
-
-      <!-- Body -->
-      <line x1="140" y1="90" x2="140" y2="150" class="figure-part" />
-
-      <!-- Arms -->
-      <line x1="140" y1="120" x2="120" y2="100" class="figure-part" />
-      <line x1="140" y1="120" x2="160" y2="100" class="figure-part" />
-
-      <!-- Legs -->
-      <line x1="140" y1="150" x2="120" y2="180" class="figure-part" />
-      <line x1="140" y1="150" x2="160" y2="180" class="figure-part" />
-    </svg>
-
-    <div id="word"></div>
-    <div id="wrong-letters-container">
-      <p>Letras incorrectas:</p>
-      <div id="wrong-letters"></div>
+    <div class="container">
+        <h1>Adivina la Palabra</h1>
+        <div id="word-container" class="word-container">
+            <!-- Aquí se mostrará la palabra oculta -->
+        </div>
+        <div id="wrong-letters-container" class="wrong-letters-container">
+            <p>Letras incorrectas:</p>
+            <div id="wrong-letters" class="wrong-letters"></div>
+        </div>
+        <p class="attempts-text">Intentos restantes: <span id="attempts" class="attempts">6</span></p>
+        <input type="text" id="letter-input" class="letter-input" maxlength="1">
+        <button id="check-button" class="button">Comprobar letra</button>
+        <button id="restart-button" class="button">Reiniciar juego</button>
     </div>
-    <div id="popup-container" class="popup-container">
-      <div id="popup" class="popup">
-        <h2 id="final-message"></h2>
-        <button id="play-button">Jugar de nuevo</button>
-      </div>
+    <script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sudoku</h1>
+        <div id="sudoku-board" class="sudoku-board">
+            <!-- Aquí se generará el tablero de Sudoku -->
+        </div>
+        <button id="new-game-button" class="new-game-button">Nuevo Juego</button>
     </div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
