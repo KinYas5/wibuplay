@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
     backButton.addEventListener('click', function() {
         backButton.style.animation = 'expandCircle 1s forwards';
         setTimeout(function() {
-            window.location.href = '/';
+            window.location.href = '/https://kinyas5.github.io/wibuplay/Juegos/index.html';
         }, 1000); // Redirecciona después de completar la animación
     });
 });
