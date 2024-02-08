@@ -1,0 +1,86 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #212121;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    background-color: #c410d4;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    overflow: hidden; /* Asegura que la animación se ajuste al botón */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-button img {
+    width: 35px; /* Ajusta la imagen al 100% del ancho del botón */
+    height: 35px; /* Permite que la altura se ajuste automáticamente */
+}
+
+@keyframes expandCircle {
+    0% {
+        width: 50px;
+        height: 50px;
+    }
+    100% {
+        width: 100vw; /* Expande el botón para cubrir toda la pantalla horizontalmente */
+        height: 100vh; /* Expande el botón para cubrir toda la pantalla verticalmente */
+        border-radius: 0%; /* Redondea los bordes a medida que se expande */
+        top: 0; /* Coloca el botón en la esquina superior izquierda */
+        right: 0;
+    }
+}
+
+.game-board {
+    width: 400px;
+    height: 400px;
+    background-color: #424242;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+.start-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #808080;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.start-button:hover {
+    background-color: #606060;
+}
+
+.hidden {
+    display: none;
+}

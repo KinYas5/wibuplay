@@ -1,0 +1,326 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #212121;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 5px;
+    background-color: #424242;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    max-width: fit-content;
+    margin-left: auto; /* Margen automático a la izquierda */
+    margin-right: auto; /* Margen automático a la derecha */
+    
+}
+
+.cell {
+    width: 100%;
+    height: 100%;
+    background-color: #757575;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    border-radius: 10px;
+}
+
+.cell.unopened:hover {
+    background-color: #616161;
+}
+
+.cell.mine {
+    background-color: #d32f2f;
+}
+
+.cell.mine:hover {
+    background-color: #b71c1c;
+}
+
+.cell.opened {
+    background-color: #78909c;
+    color: #212121;
+    cursor: default;
+}
+
+.cell.flag::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-color: #f44336;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.message {
+    font-size: 18px;
+    margin-top: 10px;
+    text-align: center;
+    position: relative;
+    bottom: -30px;
+}
+
+.win-message {
+    font-size: 80px; /* Tamaño de fuente más grande para el mensaje de victoria */
+    color: green; /* Color verde para el mensaje de victoria */
+}
+
+.lose-message {
+    font-size: 28px;
+    color: red; /* Color rojo para el mensaje de derrota */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    margin-right: 10px; /* Agregar margen derecho entre los botones */
+    width: 120px; /* Ancho fijo para todos los botones */
+}
+
+button.restart {
+    width: 140px; /* Ancho ligeramente mayor para el botón de reinicio */
+}
+
+
+button:hover {
+    animation: aura 1s infinite alternate;
+}
+
+button.easy {
+    background-color: green;
+}
+
+button.normal {
+    background-color: rgb(201, 137, 42);
+}
+
+button.hard {
+    background-color: red;
+}
+
+button.extreme {
+    background-color: purple; /* Cambia el color del botón para el modo extremo */
+}
+
+button.restart {
+    background-color: #808080;
+}
+
+button.easy:hover {
+    box-shadow: 0 0 10px #00ff00, 
+                0 0 20px #00ff00, 
+                0 0 30px #00ff00, 
+                0 0 40px #00ff00;
+}
+
+button.normal:hover {
+    box-shadow: 0 0 20px #ff8c00, 
+                0 0 40px #ff8c00, 
+                0 0 60px #ff8c00, 
+                0 0 80px #ff8c00;
+}
+
+button.hard:hover {
+    box-shadow: 
+        0 0 10px rgba(255, 69, 0, 0.5), 
+        0 0 20px rgba(255, 69, 0, 0.5), 
+        0 0 30px rgba(255, 69, 0, 0.5), 
+        0 0 40px rgba(255, 69, 0, 0.5), 
+        0 0 50px rgba(255, 69, 0, 0.5), 
+        0 0 60px rgba(255, 69, 0, 0.5), 
+        0 0 70px rgba(255, 69, 0, 0.5), 
+        0 0 80px rgba(255, 69, 0, 0.5), 
+        0 0 90px rgba(255, 69, 0, 0.5), 
+        0 0 100px rgba(255, 69, 0, 0.5), 
+        0 0 150px rgba(255, 69, 0, 0.5);
+}
+
+button.hard:hover {
+    box-shadow: 
+        0 0 10px rgba(255, 0, 234, 0.5) 
+        0 0 20px rgba(132, 0, 255, 0.5), 
+        0 0 30px rgba(255, 69, 0, 0.5), 
+        0 0 40px rgba(255, 69, 0, 0.5), 
+        0 0 50px rgba(255, 69, 0, 0.5), 
+        0 0 60px rgba(255, 69, 0, 0.5), 
+        0 0 70px rgba(255, 69, 0, 0.5), 
+        0 0 80px rgba(255, 69, 0, 0.5), 
+        0 0 90px rgba(255, 69, 0, 0.5), 
+        0 0 100px rgba(255, 69, 0, 0.5), 
+        0 0 150px rgba(255, 69, 0, 0.5);
+}
+
+button.restart:hover {
+    box-shadow: 0 0 10px #070505, 
+                0 0 20px #000000, 
+                0 0 30px #747474, 
+                0 0 50px #ffffff;
+}
+
+button.hard:hover::before,
+button.hard:hover::after {
+    content: '';
+    position: absolute;
+    width: 90px;
+    height: 110px;
+    background: rgb(255, 180, 110);
+    border-radius: 100%;
+    animation: flare 1300ms ease-out infinite;
+}
+
+button.hard:hover::before {
+    left: 0px;
+}
+
+button.hard:hover::after {
+    right: 0px;
+}
+
+@keyframes flare {
+    100% {
+        transform: translateY(-100px) scale(1.5);
+        filter: blur(30px);
+        opacity: 0;
+    }
+}
+
+.back-button {
+    background-color: #c410d4;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    overflow: hidden; /* Asegura que la animación se ajuste al botón */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-button img {
+    width: 35px; /* Ajusta la imagen al 100% del ancho del botón */
+    height: 35px; /* Permite que la altura se ajuste automáticamente */
+}
+
+@keyframes expandCircle {
+    0% {
+        width: 50px;
+        height: 50px;
+    }
+    100% {
+        width: 100vw; /* Expande el botón para cubrir toda la pantalla horizontalmente */
+        height: 100vh; /* Expande el botón para cubrir toda la pantalla verticalmente */
+        border-radius: 0%; /* Redondea los bordes a medida que se expande */
+        top: 0; /* Coloca el botón en la esquina superior izquierda */
+        right: 0;
+    }
+}
+
+button.extreme {
+    background-color: purple; /* Cambia el color del botón para el modo extremo */
+}
+
+button.extreme:hover {
+    animation: aura 1s infinite alternate,
+               pulse 1s infinite alternate,
+               glow 1s infinite alternate,
+               color-change 1s infinite alternate,
+               skew 1s infinite alternate;
+}
+
+@keyframes aura {
+    0% {
+        box-shadow: 0 0 10px #ee97ee, 
+                    0 0 20px #b160b1, 
+                    0 0 30px #a346a3, 
+                    0 0 40px #7e2a7e;
+    }
+    100% {
+        box-shadow: 0 0 20px #7a237a, 
+                    0 0 40px #6e1b6e, 
+                    0 0 60px #381238, 
+                    0 0 80px #030103;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.3);
+    }
+}
+
+@keyframes glow {
+    0% {
+        filter: drop-shadow(0 0 5px #e600d3);
+    }
+    100% {
+        filter: drop-shadow(0 0 20px #e600db);
+    }
+}
+
+@keyframes color-change {
+    0% {
+        background-color: rgb(121, 34, 121);
+    }
+    100% {
+        background-color: rgb(44, 0, 85);
+    }
+}
+
+@keyframes skew {
+    0% {
+        transform: skew(0deg);
+    }
+    100% {
+        transform: skew(10deg);
+    }
+}
+
+/* Elimina el efecto de aura en los demás botones */
+button:not(.extreme):hover {
+    animation: none;
+}
+

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Ping Pong Game</title>
+ <style>
+#container {
+  max-width: 600px; /* Agrega esta línea para limitar el ancho máximo */
+  width: 100%; /* Asegura que el contenedor sea responsivo */
+  height: 400px;
+  margin: 0 auto;
+  position: relative;
+  border: 1px solid #000;
+}
+
+   #paddle1, #paddle2 {
+     width: 10px;
+     height: 80px;
+     background-color: #000;
+     position: absolute;
+   }
+   #paddle1 {
+     left: 0;
+   }
+   #paddle2 {
+     right: 0;
+   }
+   #ball {
+     width: 20px;
+     height: 20px;
+     background-color: #FF0000;
+     position: absolute;
+     border-radius: 50%;
+   }
+   #score {
+     position: absolute;
+     top: 10px;
+     left: 50%;
+     transform: translateX(-50%);
+     font-size: 24px;
+   }
+   #menu {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     text-align: center;
+     font-size: 24px;
+   }
+   #welcome-text {
+     position: absolute;
+     top: 50px;
+     left: 50%;
+     transform: translateX(-50%);
+     font-size: 24px;
+   }
+   .level-button {
+     margin: 5px;
+   }
+   .menu-box {
+     display: none;
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     background-color: rgba(255, 255, 255, 0.8);
+     padding: 20px;
+     border-radius: 10px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+     text-align: center;
+   }
+   .menu-button {
+     margin: 10px;
+     padding: 10px 20px;
+     font-size: 18px;
+     cursor: pointer;
+     border-radius: 20px;
+     border: none;
+     background-color: #ccc;
+   }
+ </style>
+</head>
+<body>
+ <div id="container">
+   <div id="paddle1"></div>
+   <div id="paddle2"></div>
+   <div id="ball"></div>
+   <div id="score">0:0</div>
+   <div id="welcome-text">Bienvenido, para iniciar pulsa el botón</div>
+   <div id="menu">
+     <button id="startButton">Start Game</button>
+     <button id="levelsButton">Niveles</button>
+     <div id="levelsMenu" class="menu-box" style="display: none;">
+       <button class="menu-button level-button" data-speed="3">Nivel 1</button>
+       <button class="menu-button level-button" data-speed="5">Nivel 2</button>
+       <button class="menu-button level-button" data-speed="7">Nivel 3</button>
+       <button class="menu-button level-button" data-speed="9">Nivel 4</button>
+       <button class="menu-button level-button" data-speed="11">Nivel 5</button>
+     </div>
+   </div>
+   <div id="pause-menu" class="menu-box">
+     <div style="text-align: center;">¡Juego en pausa!</div>
+     <button class="menu-button" id="resumeButton">Continuar</button>
+     <button class="menu-button" id="mainMenuButton">Menú principal</button>
+   </div>
+ </div>
+
+
+ <script>
+   document.addEventListener("DOMContentLoaded", function() {
+     const container = document.getElementById("container");
+     const ball = document.getElementById("ball");
+     const paddle1 = document.getElementById("paddle1");
+     const paddle2 = document.getElementById("paddle2");
+     const scoreDisplay = document.getElementById("score");
+     const welcomeText = document.getElementById("welcome-text");
+     const menu = document.getElementById("menu");
+     const startButton = document.getElementById("startButton");
+     const levelsButton = document.getElementById("levelsButton");
+     const levelsMenu = document.getElementById("levelsMenu");
+     const levelButtons = document.querySelectorAll(".level-button");
+     const pauseMenu = document.getElementById("pause-menu");
+     const resumeButton = document.getElementById("resumeButton");
+     const mainMenuButton = document.getElementById("mainMenuButton");
+
+
+     let gameStarted = false;
+     let gamePaused = false;
+     let ballSpeedX = 3;
+     let ballSpeedY = 3;
+     let paddle1Y = 160;
+     let paddle2Y = 160;
+     let score1 = 0;
+     let score2 = 0;
+     let defaultBallSpeedX = 3;
+     let defaultBallSpeedY = 3;
+
+
+     startButton.addEventListener("click", function() {
+       welcomeText.style.display = "none";
+       menu.style.display = "none";
+       startGame();
+     });
+
+
+     levelsButton.addEventListener("click", function() {
+       levelsMenu.style.display = "block";
+     });
+
+
+     levelButtons.forEach(function(button) {
+       button.addEventListener("click", function() {
+         levelsMenu.style.display = "none";
+         ballSpeedX = parseInt(button.dataset.speed);
+         ballSpeedY = parseInt(button.dataset.speed);
+         defaultBallSpeedX = ballSpeedX;
+         defaultBallSpeedY = ballSpeedY;
+       });
+     });
+
+
+     function resetGame() {
+       score1 = 0;
+       score2 = 0;
+       resetBall();
+       gamePaused = false;
+     }
+
+
+     function startGame() {
+       resetGame();
+       ballSpeedX = defaultBallSpeedX;
+       ballSpeedY = defaultBallSpeedY;
+       gameStarted = true;
+       gameLoop();
+     }
+
+
+     function update() {
+       if (gamePaused) return; // Exit update loop if game is paused
+
+
+       // Move ball
+       ballX += ballSpeedX;
+       ballY += ballSpeedY;
+
+
+       // Check collision with top and bottom walls
+       if (ballY <= 5 || ballY >= 375) {
+         ballSpeedY = -ballSpeedY;
+       }
+
+
+       // Check collision with paddles
+       if (ballX <= 10) {
+         if (ballY > paddle1Y && ballY < paddle1Y + 80) {
+           ballSpeedX = -ballSpeedX;
+         } else {
+           score2++;
+           updateScore();
+           resetBall();
+         }
+       } else if (ballX >= 570) {
+         if (ballY > paddle2Y && ballY < paddle2Y + 80) {
+           ballSpeedX = -ballSpeedX;
+         } else {
+           score1++;
+           updateScore();
+           resetBall();
+         }
+       }
+
+
+       // Check if the ball goes out of bounds
+       if (ballX < -50 || ballX > 650) {
+         resetBall();
+       }
+
+
+       ball.style.left = ballX + "px";
+       ball.style.top = ballY + "px";
+     }
+
+
+     function updateScore() {
+       scoreDisplay.textContent = `${score1}:${score2}`;
+     }
+
+
+     function resetBall() {
+       ballX = 290;
+       ballY = 190;
+     }
+
+
+     function gameLoop() {
+       update();
+       requestAnimationFrame(gameLoop);
+     }
+
+
+     // Keyboard controls
+     const keysPressed = {};
+
+
+     document.addEventListener("keydown", function(event) {
+       keysPressed[event.key] = true;
+
+
+       // Pause game on spacebar press
+       if (event.key === ' ') {
+         togglePause();
+       }
+     });
+
+
+     document.addEventListener("keyup", function(event) {
+       keysPressed[event.key] = false;
+     });
+
+
+     // Movement loop
+     setInterval(function() {
+       if (!gamePaused) {
+         if (keysPressed['w'] && paddle1Y > 0) {
+           paddle1Y -= 10;
+         }
+         if (keysPressed['s'] && paddle1Y < 320) {
+           paddle1Y += 10;
+         }
+         if (keysPressed['ArrowUp'] && paddle2Y > 0) {
+           paddle2Y -= 10;
+         }
+         if (keysPressed['ArrowDown'] && paddle2Y < 320) {
+           paddle2Y += 10;
+         }
+
+
+         // Update paddle positions
+         paddle1.style.top = paddle1Y + "px";
+         paddle2.style.top = paddle2Y + "px";
+       }
+     }, 1000 / 60); // 60 frames per second
+
+
+     function togglePause() {
+       gamePaused = !gamePaused;
+       pauseMenu.style.display = gamePaused ? 'block' : 'none';
+     }
+
+
+     resumeButton.addEventListener("click", function() {
+       togglePause();
+     });
+
+
+     mainMenuButton.addEventListener("click", function() {
+       togglePause();
+       // Reset the game and show the main menu
+       resetGame();
+       welcomeText.style.display = "block";
+       menu.style.display = "block";
+     });
+   });
+ </script>
+</body>
+</html>
